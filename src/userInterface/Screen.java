@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import entities.Snake;
 import generators.AppleGenerator;
+import generators.FrogGenerator;
+import generators.WallsGenerator;
 
 public class Screen extends JPanel implements Runnable{
 	public static final int WIDTH = 400, HEIGHT = 400;
@@ -20,6 +22,8 @@ public class Screen extends JPanel implements Runnable{
 	private Snake player;
 	private Key key;
 	private AppleGenerator appleGen;
+	private WallsGenerator wallsGen;
+	private FrogGenerator frogGen;
 	
 	public Screen()
 	{
@@ -32,7 +36,13 @@ public class Screen extends JPanel implements Runnable{
 	
 	public void start() {
 		this.player = new Snake(10, 10);
+		this.wallsGen = new WallsGenerator(10);
+		this.wallsGen.Generate();
+		this.frogGen = new FrogGenerator();
 		this.appleGen = new AppleGenerator();
+
+		this.frogGen.Generate(wallsGen.xList, wallsGen.yList);
+		this.appleGen.Generate(wallsGen.xList, wallsGen.yList);
 		this.running = true;
 		thread = new Thread(this, "GameLoop");
 		thread.start();
@@ -41,6 +51,7 @@ public class Screen extends JPanel implements Runnable{
 	public void stop() {
 		running = false;
 		this.appleGen.stop();
+		this.frogGen.stop();
 	}
 
 	@Override
@@ -58,6 +69,8 @@ public class Screen extends JPanel implements Runnable{
 			DrawBackground(g);
 			this.player.DrawSnake(g);
 			this.appleGen.DrawApples(g);
+			this.wallsGen.DrawWalls(g);
+			this.frogGen.DrawFrog(g);
 		} else {
 			this.player.DrawSnake(g);
 			GameOver(g);
@@ -85,10 +98,14 @@ public class Screen extends JPanel implements Runnable{
 			this.player.Move();
 			this.ticks = 0;
 		}
-		this.appleGen.Generate();
+		this.appleGen.Generate(this.wallsGen.xList, this.wallsGen.yList);
 		this.appleGen.tick(this.player);
 		
-		if(player.Collision()) {
+		this.frogGen.Generate(this.wallsGen.xList, this.wallsGen.yList);
+		this.frogGen.tick(this.player);
+		
+		
+		if(player.Collision() || this.wallsGen.Collision(this.player)) {
 			stop();
 		}
 	}
