@@ -30,19 +30,27 @@ public class AppleGenerator {
 		}
 	}
 	
-	public void Generate() {
+	public void Generate(ArrayList<Integer> xList, ArrayList<Integer> yList) {
 		if(this.apples.size() == 0) {
-			r = new Random();
-			int x = r.nextInt(39);
-			int y = r.nextInt(39);
+			int x = Randomizer(xList, 39);
+			int y = Randomizer(yList, 39);
 			apple = new Apple(x, y, 10);
 			apples.add(apple);
 		}
 	}
 	
+	private int Randomizer(ArrayList<Integer> list, int size) {
+		r = new Random();
+		int ans = r.nextInt(size);
+		while(list.contains(ans)) {
+			ans = r.nextInt(size);
+		}
+		return ans;
+	}
+	
 	public void tick(Snake s) {
 		for(int i = 0; i < apples.size(); i++) {
-			if(s.x == apples.get(i).getX() && s.y == apples.get(i).getY()) {
+			if(apples.get(i).Collision(s.x, s.y)) {
 				s.AddBodyPart();
 				apples.remove(i);
 				i--;
