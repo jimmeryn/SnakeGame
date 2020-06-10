@@ -84,6 +84,5 @@ public class Snake {
 		if(x <= 0 || x >= 39 || y <= 0 || y >= 39) {
 			return true;
 		} else return false;		
-	}
-	
+	}	
 }
