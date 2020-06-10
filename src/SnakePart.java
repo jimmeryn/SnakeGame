@@ -16,7 +16,7 @@ public class SnakePart {
 	}
 	
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.green);
 		g.fillRect(x*width, y*height, width, height);		
 	}
 }
