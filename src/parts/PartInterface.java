@@ -1,3 +1,4 @@
+package parts;
 import java.awt.Graphics;
 
 interface PartInterface {

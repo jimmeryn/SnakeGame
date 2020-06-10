@@ -1,3 +1,4 @@
+package userInterface;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
+
+import entities.Snake;
+import generators.AppleGenerator;
 
 public class Screen extends JPanel implements Runnable{
 	public static final int WIDTH = 400, HEIGHT = 400;

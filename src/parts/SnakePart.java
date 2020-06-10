@@ -1,3 +1,4 @@
+package parts;
 import java.awt.Color;
 
 public class SnakePart extends Part{

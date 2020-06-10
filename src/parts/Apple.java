@@ -1,5 +1,5 @@
+package parts;
 import java.awt.Color;
-import java.awt.Graphics;
 
 public class Apple extends Part{
 	public Apple(int x, int y, int tileSize, Color color) {

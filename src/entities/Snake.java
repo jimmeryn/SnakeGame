@@ -1,6 +1,9 @@
+package entities;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+
+import parts.SnakePart;
 
 public class Snake {
 	public SnakePart bodyPart;

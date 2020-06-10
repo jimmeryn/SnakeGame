@@ -1,6 +1,10 @@
+package generators;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+
+import entities.Snake;
+import parts.Apple;
 
 public class AppleGenerator {
 	public Apple apple;

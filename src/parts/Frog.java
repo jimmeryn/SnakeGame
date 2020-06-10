@@ -1,3 +1,4 @@
+package parts;
 import java.awt.Color;
 
 public class Frog extends Part{
