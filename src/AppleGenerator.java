@@ -18,6 +18,14 @@ public class AppleGenerator {
 		thread.start();
 	}
 	
+	public void stop() {
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void Generate() {
 		if(this.apples.size() == 0) {
 			r = new Random();
@@ -38,7 +46,7 @@ public class AppleGenerator {
 		}
 	}
 	
-	public void Paint(Graphics g) {
+	public void DrawApples(Graphics g) {
 		for(int i = 0; i < apples.size(); i++) {
 			apples.get(i).draw(g);
 		}
