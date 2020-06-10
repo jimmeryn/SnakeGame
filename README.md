@@ -13,3 +13,6 @@ Java University project.
 - [x] best score:
   - [x] in game,
   - [ ] in file
+  
+  ## UML Graph
+![UML Graph](https://github.com/jimmeryn/SnakeGame/blob/master/uml.png?raw=true)
