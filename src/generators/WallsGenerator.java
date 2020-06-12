@@ -7,6 +7,9 @@ import java.util.Random;
 import entities.Snake;
 import parts.Wall;
 
+/**
+ * Walls generator - generating walls and storing info about them
+ */
 public class WallsGenerator {
 	public ArrayList<Wall> walls;
 	private Random r;
@@ -14,6 +17,10 @@ public class WallsGenerator {
 	public ArrayList<Integer> xList;
 	public ArrayList<Integer> yList;
 	
+	/**
+	 * Constructor
+	 * @param size - number of walls to be placed on the map
+	 */
 	public WallsGenerator(int size) {
 		this.size = size;
 		walls = new ArrayList<Wall>();
@@ -21,6 +28,9 @@ public class WallsGenerator {
 		this.yList = new ArrayList<Integer>();
 	}
 	
+	/**
+	 * Generate walls randomly
+	 */
 	public void Generate() {
 		if(this.walls.size() == 0) {
 			int x;
@@ -39,6 +49,9 @@ public class WallsGenerator {
 		}
 	}
 	
+	/**
+	 * Generate frames (boarders) of the screen/ map
+	 */
 	private void GenerateFrames() {
 		Wall wall;
 		for(int i = 0; i < 40; i++) {
@@ -59,6 +72,11 @@ public class WallsGenerator {
 		}
 	}
 	
+	/**
+	 * Check every frame if snake collide with wall
+	 * @param s - snake to check
+	 * @return true or false depending on current state
+	 */
 	public boolean tick(Snake s) {
 		for(int i = 0; i < walls.size(); i++) {
 			if(walls.get(i).Collision(s.x, s.y)) {
@@ -68,12 +86,21 @@ public class WallsGenerator {
 		return false;
 	}
 	
+	/**
+	 * Drawing walls
+	 * @param g - graphics
+	 */
 	public void DrawWalls(Graphics g) {
 		for(int i = 0; i < walls.size(); i++) {
 			walls.get(i).draw(g);
 		}
 	}
 	
+	/**
+	 * Collision with walls check for given snake (player or AI)
+	 * @param s - Snake to check collision with 
+	 * @return true or false depending on collision occurrence
+	 */
 	public boolean Collision(Snake s) {
 		for(int i = 0; i < walls.size(); i++) {
 			if(walls.get(i).Collision(s.x, s.y)) {
@@ -83,6 +110,12 @@ public class WallsGenerator {
 		return false;
 	}
 	
+	/**
+	 * Collision with walls check for given point 
+	 * @param x - x coordinate to check
+	 * @param y - y coordinate to check
+	 * @return true or false depending on collision occurrence 
+	 */
 	public boolean Collision(int x, int y) {
 		for(int i = 0; i < walls.size(); i++) {
 			if(walls.get(i).Collision(x, y)) {

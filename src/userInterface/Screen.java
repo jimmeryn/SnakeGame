@@ -14,6 +14,10 @@ import generators.AppleGenerator;
 import generators.FrogGenerator;
 import generators.WallsGenerator;
 
+/**
+ * Screen class extending JPanel implementing Runnable.
+ * Basic game screen
+ */
 public class Screen extends JPanel implements Runnable{
 	public static final int WIDTH = 400, HEIGHT = 400;
 	private Thread thread;
@@ -25,6 +29,10 @@ public class Screen extends JPanel implements Runnable{
 	private WallsGenerator wallsGen;
 	private FrogGenerator frogGen;
 	
+	/**
+	 * Screen constructor.
+	 * Setting size, adding key listener, starting game
+	 */
 	public Screen()
 	{
 		setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -34,6 +42,10 @@ public class Screen extends JPanel implements Runnable{
 		this.start();
 	}
 	
+	/**
+	 * Start method - initialize game parts. 
+	 * Generate entities, start basic game thread
+	 */
 	public void start() {
 		this.player = new Snake(10, 10);
 		this.wallsGen = new WallsGenerator(10);
@@ -48,12 +60,18 @@ public class Screen extends JPanel implements Runnable{
 		thread.start();
 	}
 	
+	/**
+	 * stops game and basic game thread
+	 */
 	public void stop() {
 		running = false;
 		this.appleGen.stop();
 		this.frogGen.stop();
 	}
 
+	/**
+	 * run - game loop
+	 */
 	@Override
 	public void run() {
 		while(running) {
@@ -63,6 +81,9 @@ public class Screen extends JPanel implements Runnable{
 		
 	}
 	
+	/**
+	 * Painting everything on the screen
+	 */
 	@Override
 	public void paint(Graphics g){
 		if(running) {
@@ -77,11 +98,19 @@ public class Screen extends JPanel implements Runnable{
 		}
 	}
 
+	/**
+	 * Creating and drawing background
+	 * @param g
+	 */
 	private void DrawBackground(Graphics g) {
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 		DrawGrid(g);
 	}
 	
+	/**
+	 * Create grid used in background
+	 * @param g
+	 */
 	private void DrawGrid(Graphics g) {
 		g.setColor(Color.LIGHT_GRAY);
 		for(int i = 0; i < WIDTH / 10; i++) {
@@ -92,6 +121,9 @@ public class Screen extends JPanel implements Runnable{
 		}
 	}
 	
+	/**
+	 * Every frame checks 
+	 */
 	private void tick() {
 		this.ticks++;
 		if(ticks > 300000) {
@@ -111,6 +143,10 @@ public class Screen extends JPanel implements Runnable{
 		}
 	}
 	
+	/**
+	 * Game over menu - player can see best result, current points and restart the game
+	 * @param g
+	 */
 	private void GameOver(Graphics g) {
 		String msg = "GAME OVER!";
 		String record = "NEW RECORD!";
@@ -137,6 +173,11 @@ public class Screen extends JPanel implements Runnable{
 		
 	}
 	
+	/**
+	 * Key class implementing KeyLustener.
+	 * Used to get key events from keyboard
+	 *
+	 */
 	private class Key implements KeyListener{
 
 		@Override
