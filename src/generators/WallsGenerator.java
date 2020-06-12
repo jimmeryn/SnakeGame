@@ -35,6 +35,27 @@ public class WallsGenerator {
 				wall = new Wall(x, y, 10);
 				walls.add(wall);
 			}
+			GenerateFrames();
+		}
+	}
+	
+	private void GenerateFrames() {
+		Wall wall;
+		for(int i = 0; i < 40; i++) {
+			wall = new Wall(i, -1, 10);
+			walls.add(wall);
+		}
+		for(int i = 0; i < 40; i++) {
+			wall = new Wall(i, 40, 10);
+			walls.add(wall);
+		}
+		for(int i = 0; i < 40; i++) {
+			wall = new Wall(-1, i, 10);
+			walls.add(wall);
+		}
+		for(int i = 0; i < 40; i++) {
+			wall = new Wall(40, i, 10);
+			walls.add(wall);
 		}
 	}
 	
@@ -56,6 +77,15 @@ public class WallsGenerator {
 	public boolean Collision(Snake s) {
 		for(int i = 0; i < walls.size(); i++) {
 			if(walls.get(i).Collision(s.x, s.y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean Collision(int x, int y) {
+		for(int i = 0; i < walls.size(); i++) {
+			if(walls.get(i).Collision(x, y)) {
 				return true;
 			}
 		}
