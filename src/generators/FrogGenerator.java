@@ -3,6 +3,7 @@ package generators;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import entities.Snake;
 import parts.Frog;
@@ -59,14 +60,42 @@ public class FrogGenerator {
 		frog.draw(g);
 	}
 	
-	public void Move() {
-		if(this.frog.up) this.frog.setY(this.frog.getY() - 1);
-		else if(this.frog.down) this.frog.setY(this.frog.getY() + 1);
-		else if(this.frog.left) this.frog.setX(this.frog.getX() - 1);
-		else if(this.frog.right) this.frog.setX(this.frog.getX() + 1);
+	private int nextRandomCoord(){
+		return ThreadLocalRandom.current().nextInt(0, 6);
 	}
 	
-	public void FrogAI() {
-		
+	public void FrogAI(Snake player, WallsGenerator wallGen) {
+		int nextX = this.frog.getX();
+		int nextY = this.frog.getY();
+		int rn = nextRandomCoord();
+		switch(rn) {
+		  case 0:
+			nextX++;
+		    break;
+		  case 1:
+		    nextX--;
+		    break;
+		  case 2:
+		    nextY++;
+		    break;
+		  case 3:
+		    nextY--;
+		    break;
+		  default:
+			  break;
+		}
+		if(!player.Collision(nextX, nextY) && !Collision(nextX, nextY, wallGen)) {
+			this.frog.Move(nextX, nextY);
+		}
+	}
+	
+	public boolean Collision(int nextX, int nextY, WallsGenerator wallGen) {
+		if(WallCollision(nextX, nextY, wallGen)) {
+			return true;
+		} else return false;
+	}
+	
+	private boolean WallCollision(int nextX, int nextY, WallsGenerator wallGen) {
+		return wallGen.Collision(nextX, nextY);
 	}
 }
