@@ -74,15 +74,49 @@ public class Snake {
 		}
 	}
 	
+	private SnakePart Head() {
+		return this.body.get(this.body.size() - 1);
+	}
+	
 	public boolean Collision() {
-		if(FrameCollision()) {
+		if(SelfCollision()) {
 			return true;
 		} else return false;
 	}
 	
-	private boolean FrameCollision() {
-		if(x <= 0 || x >= 39 || y <= 0 || y >= 39) {
-			return true;
-		} else return false;		
-	}	
+	private boolean SelfCollision() {
+		if(this.body.size() > 4) {
+			for(int i = 0; i < body.size() - 2; i++) {	
+				if(body.get(i).Collision(Head().getX(), Head().getY())) {
+					return true;
+				}
+			}
+			return false;
+		} else return false;
+	}
+	
+	public boolean Collision(int x, int y) {
+		for(int i = 0; i < body.size(); i++) {
+			if(body.get(i).Collision(x, y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public ArrayList<Integer> PositionsX(){
+		ArrayList<Integer> xCoords = new ArrayList<Integer>();
+		for(int i = 0; i < this.size; i++) {
+			xCoords.add(this.body.get(i).getX());
+		}
+		return xCoords;
+	}
+
+	public ArrayList<Integer> PositionsY(){
+		ArrayList<Integer> yCoords = new ArrayList<Integer>();	
+		for(int i = 0; i < this.size; i++) {
+			yCoords.add(this.body.get(i).getY());
+		}
+		return yCoords;
+	}
 }
