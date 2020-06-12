@@ -1,6 +1,6 @@
 # Snake
 
-Java University project.
+Java University project. Not all things are finished but I'm short on time so I'll leave it for now.
 
 ## Game
 
