@@ -94,8 +94,9 @@ public class Screen extends JPanel implements Runnable{
 	
 	private void tick() {
 		this.ticks++;
-		if(ticks > 500000) {
+		if(ticks > 300000) {
 			this.player.Move();
+			this.frogGen.FrogAI(this.player, this.wallsGen);
 			this.ticks = 0;
 		}
 		this.appleGen.Generate(this.wallsGen.xList, this.wallsGen.yList);
